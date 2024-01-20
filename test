@@ -1,15 +1,22 @@
-import datetime
-import dateutil
+import ipywidgets as widgets
 
-def make_url(date):
-    """Return the url for our API call based on date."""
+ignition = widgets.ToggleButton(
+    value=False,
+    description='Start Engine',
+    button_style='success',
+    tooltip='Engage your Engine',
+    icon='rocket'
+)
 
-    if isinstance(date, str):
-        date = dateutil.parser.parse(date).date()
-    elif not isinstance(date, datetime.date):
-        raise ValueError("must be a date")
-    if date >= datetime.date(2020, 1, 1):
-        return f"https://api.example.com/v2/{date.year}/{date.month}/{date.day}"
-    else:
-        return f"https://api.example.com/v1/{date:%Y-%m-%d}"
+output = widgets.Output()
 
+display(ignition, output)
+
+def on_value_change(change):
+    with output:
+        if change['new'] == True:
+            print("engine started!")
+        else:   
+            print("engine stopped")
+
+ignition.observe(on_value_change, names='value')
