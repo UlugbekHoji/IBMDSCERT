@@ -12,3 +12,4 @@ def make_url(date):
         return f"https://api.example.com/v2/{date.year}/{date.month}/{date.day}"
     else:
         return f"https://api.example.com/v1/{date:%Y-%m-%d}"
+
