@@ -1,0 +1,14 @@
+import datetime
+import dateutil
+
+def make_url(date):
+    """Return the url for our API call based on date."""
+
+    if isinstance(date, str):
+        date = dateutil.parser.parse(date).date()
+    elif not isinstance(date, datetime.date):
+        raise ValueError("must be a date")
+    if date >= datetime.date(2020, 1, 1):
+        return f"https://api.example.com/v2/{date.year}/{date.month}/{date.day}"
+    else:
+        return f"https://api.example.com/v1/{date:%Y-%m-%d}"
